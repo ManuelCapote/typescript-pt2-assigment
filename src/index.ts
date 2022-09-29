@@ -168,7 +168,7 @@ addPhone(newYorkWarehouse, 'iPhone 13 Plus', 1090, true)
 //Delete a cell phone from the provided array at the provided index
 const deletePhoneByIndex = (array: Warehouse[], index: number) => {
   array.splice(index, 1)
-  return(array)
+  return array
 }
 
 console.log(deletePhoneByIndex(newYorkWarehouse, 2))
@@ -254,24 +254,32 @@ const phoneFlashSale = (array: Warehouse[], percentage: number) => {
   return array
 }
 
-console.log('phoneFlashSale:', phoneFlashSale(newYorkWarehouse, 15))
+//Testing results:
+// console.log('phoneFlashSale:', phoneFlashSale(newYorkWarehouse, 15))
 
 //phoneFlashSaleV2
 //Return a new array including all phone information where only specified names have an additional discounted property based on a provided percentage.
 const phoneFlashSaleV2 = (
   array: Warehouse[],
   percentage: number,
-  cellList: string[]
-) => {
-  array.map(
-    (cell) => {
-        cellList.forEach(item, index) => {
-            if(item === cell.name) {
-                cell.discountedPrice = cell.price - cell.price * (percentage / 100)
-            }
-        }  
-        })
-        return array
-    }
+  names: string[]
+): Warehouse[] => {
+  const cellNames = names
+  const discountedArray = array.map((cell) => {
+    cellNames.map((item) => {
+      if (cell.name === item) {
+        cell.discountedPrice = cell.price - cell.price * (percentage / 100)
+      }
+    })
 
-console.log('phoneFlashSaleV2:', phoneFlashSaleV2(newYorkWarehouse, 15, ['iPhone 13 Plus', 'iPhone SE']))
+    return cell
+  })
+
+  return discountedArray
+}
+
+//Testing results:
+// console.log(
+//   'phoneFlashSaleV2',
+//   phoneFlashSaleV2(newYorkWarehouse, 15, ['Pixel 4a 5G', 'iPhone SE'])
+// )
